@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Web Rendering Benchmarks</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/6.0.1/browser/pixi.js"></script>
+    </head>
+    <body>
+        <div>
+            <div style="display: inline-block" id="pxjs">PixiJS<br></div>
+            <div style="display: inline-block" id="cnvs">Canvas<br></div>
+            <div style="display: inline-block" id="wbgl">WebGL<br></div>
+        </div>
+        <input id="objc" type="number" value="100000">
+        <button onclick="redo()">Redraw</button>
+        <button onclick="pixiShift(10000)">Shift Pixi Container</button>
+        
+        <script src="pixi.js"></script>
+        <script src="canvas.js"></script>
+        <script src="webgl.js"></script>
+        <script defer>
+            function redo() {
+                const objects = [];
+                const objCount = document.getElementById('objc').value;
+                const xsqrt = Math.ceil(Math.sqrt(objCount / 4));
+                const containerw = Math.sqrt(xsqrt);
+                const dst = 50;
+                for (let i = -xsqrt; i < xsqrt; i++) {
+                    for (let j = -xsqrt; j < xsqrt; j++) {
+                        const width = Math.random() * 100;
+                        objects.push({
+                            x: i * dst + Math.random() * 100 - 50,
+                            y: j * dst + Math.random() * 100 - 50,
+                            width: width,
+                            height: Math.random() * 100,
+                            cont: Math.floor(i / containerw) + " " + Math.floor(j / containerw),
+                            shape: Math.random() < 0.5 ? 'rect' : 'trap',
+                            slopiness: Math.random() * width,
+                        });
+                    }
+                }
+                pixiInit(objects);
+                canvasInit(objects);
+                webglInit(objects);
+            }
+            setTimeout(redo, 100);
+        </script>
+    </body>
+</html>
