@@ -9,14 +9,15 @@
             <div style="display: inline-block" id="pxjs">PixiJS<br></div>
             <div style="display: inline-block" id="cnvs">Canvas<br></div>
             <div style="display: inline-block" id="wbgl">WebGL<br></div>
+            <div style="display: inline-block" id="svg">SVG<br></div>
         </div>
         <input id="objc" type="number" value="10000">
         <button onclick="redo()">Redraw</button>
         <button onclick="pixiShift(10000)">Shift Pixi Container</button>
-        
         <script src="pixi.js"></script>
         <script src="canvas.js"></script>
         <script src="webgl.js"></script>
+        <script src="svg.js"></script>
         <script defer>
             function redo() {
                 const objects = [];
@@ -41,6 +42,7 @@
                 pixiInit(objects);
                 canvasInit(objects);
                 webglInit(objects);
+                svgInit(objects);
             }
             setTimeout(redo, 100);
         </script>
